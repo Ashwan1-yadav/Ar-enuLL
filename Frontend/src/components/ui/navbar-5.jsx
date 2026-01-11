@@ -62,10 +62,16 @@ export const Navbar5 = () => {
               Services
             </Link>
             <Link
-              to="/contact"
+              to="/getintouch"
               className="text-sm text-white/60 hover:text-white transition-colors"
             >
               Get In Touch
+            </Link>
+            <Link
+              to="/contact"
+              className="text-sm text-white/60 hover:text-white transition-colors"
+            >
+              Contact Us
             </Link>
             <Link
               to="/about"
@@ -82,7 +88,7 @@ export const Navbar5 = () => {
               variant="outline"
               className="border-black/20 text-black hover:bg-white hover:text-black"
             >
-              <Link to="/contact">Contact Us</Link>
+              <Link to="/contact">Get Started</Link>
             </Button>
           </div>
 
@@ -99,7 +105,7 @@ export const Navbar5 = () => {
       {mobileMenuOpen && (
         <div className="md:hidden bg-black/95 backdrop-blur-md border-t border-gray-800/50 animate-[slideDown_0.3s_ease-out]">
           <div className="px-6 py-4 flex flex-col gap-4">
-            <Link
+          <Link
               to="/"
               className="text-sm text-white/60 hover:text-white transition-colors"
             >
@@ -110,6 +116,12 @@ export const Navbar5 = () => {
               className="text-sm text-white/60 hover:text-white transition-colors"
             >
               Services
+            </Link>
+            <Link
+              to="/getintouch"
+              className="text-sm text-white/60 hover:text-white transition-colors"
+            >
+              Get In Touch
             </Link>
             <Link
               to="/contact"
@@ -130,7 +142,7 @@ export const Navbar5 = () => {
               variant="outline"
               className="border-black/20 text-black hover:bg-white hover:text-black"
             >
-              <Link to="/contact">Contact Us</Link>
+              <Link to="/contact">Get Started</Link>
             </Button>
             </div>
           </div>

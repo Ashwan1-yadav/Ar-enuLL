@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 const Button = React.forwardRef(
   ({ variant = "default", size = "default", className = "", children, ...props }, ref) => {
     const baseStyles = "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50";
@@ -149,7 +150,7 @@ const Hero = React.memo(() => {
           size="lg"
           className="rounded-lg flex items-center justify-center"
           aria-label="Get started with the template">
-          Get started
+          <Link to="/contact">Get started</Link>
         </Button>
       </div>
       <div className="w-full max-w-5xl relative pb-20">
