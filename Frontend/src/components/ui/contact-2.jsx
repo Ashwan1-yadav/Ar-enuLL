@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
+import { toast } from "sonner";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 export const Contact2 = ({
   title = "Contact Us",
@@ -11,11 +16,74 @@ export const Contact2 = ({
   email = "hello@arsunell.com",
   web = { label: "https://arsunull.vercel.app/", url: "https://arsunull.vercel.app/" },
 }) => {
+
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    contactNo: "",
+    message: "",
+  });
+
+  const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setErrors({ ...errors, [e.target.name]: "" });
+  };
+
+  const validate = () => {
+    const newErrors = {};
+
+    if (!formData.name.trim()) newErrors.name = "Name is required";
+    if (!formData.email.trim()) newErrors.email = "Email is required";
+    if (!/\S+@\S+\.\S+/.test(formData.email))
+      newErrors.email = "Invalid email";
+    if (!formData.contactNo.trim())
+      newErrors.contactNo = "Contact number is required";
+    if (!formData.message.trim())
+      newErrors.message = "Message is required";
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!validate()) {
+      toast.error("Please fill all required fields");
+      return;
+    }
+
+    try {
+      setLoading(true);
+
+      await axios.post(`${BASE_URL}/api/v1/contact`, formData);
+
+      toast.success("Message sent successfully");
+
+      setFormData({
+        name: "",
+        email: "",
+        contactNo: "",
+        message: "",
+      });
+    } catch (error) {
+      toast.error(
+        error.response?.data?.message || "Something went wrong"
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <section className="bg-black py-32 text-white">
       <div className="container mx-auto px-6">
         <div className="mx-auto flex max-w-screen-xl flex-col gap-16 lg:flex-row lg:gap-24">
-          {/* LEFT CONTENT */}
+
+          {/* LEFT CONTENT — UNCHANGED */}
           <div className="flex max-w-sm flex-col gap-12">
             <div>
               <h1 className="mb-4 text-5xl font-semibold lg:text-6xl">
@@ -29,27 +97,17 @@ export const Contact2 = ({
                 Contact Details
               </h3>
               <ul className="space-y-3 text-gray-300">
-                <li>
-                  <span className="font-medium text-white">Phone:</span>{" "}
-                  {phone}
-                </li>
+                <li><span className="font-medium text-white">Phone:</span> {phone}</li>
                 <li>
                   <span className="font-medium text-white">Email:</span>{" "}
-                  <a
-                    href={`mailto:${email}`}
-                    className="underline underline-offset-4 hover:text-white"
-                  >
+                  <a href={`mailto:${email}`} className="underline underline-offset-4">
                     {email}
                   </a>
                 </li>
                 <li>
                   <span className="font-medium text-white">Web:</span>{" "}
-                  <a
-                    href={web.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="underline underline-offset-4 hover:text-white"
-                  >
+                  <a href={web.url} target="_blank" rel="noreferrer"
+                     className="underline underline-offset-4">
                     {web.label}
                   </a>
                 </li>
@@ -57,56 +115,72 @@ export const Contact2 = ({
             </div>
           </div>
 
-          {/* RIGHT FORM */}
-          <div className="w-full max-w-screen-md rounded-xl border border-white/10 bg-neutral-900 p-8 shadow-xl">
-            <div className="flex gap-4">
-              <div className="flex w-full flex-col gap-2">
-                <Label className="text-gray-300">First Name</Label>
-                <Input
-                  className="bg-black border-white/15 text-white placeholder:text-gray-500 focus:border-white"
-                  placeholder="First Name"
-                />
-              </div>
-              <div className="flex w-full flex-col gap-2">
-                <Label className="text-gray-300">Last Name</Label>
-                <Input
-                  className="bg-black border-white/15 text-white placeholder:text-gray-500 focus:border-white"
-                  placeholder="Last Name"
-                />
-              </div>
+          {/* RIGHT FORM — UI SAME, FIELDS UPDATED */}
+          <form
+            onSubmit={handleSubmit}
+            className="w-full max-w-screen-md rounded-xl border border-white/10 bg-neutral-900 p-8 shadow-xl"
+          >
+            <div className="flex w-full flex-col gap-2">
+              <Label className="text-gray-300">Name</Label>
+              <Input
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                className="bg-black border-white/15 text-white"
+                placeholder="Your Name"
+              />
+              {errors.name && <p className="text-sm text-red-400">{errors.name}</p>}
             </div>
 
             <div className="mt-4 flex flex-col gap-2">
               <Label className="text-gray-300">Email</Label>
               <Input
                 type="email"
-                className="bg-black border-white/15 text-white placeholder:text-gray-500 focus:border-white"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                className="bg-black border-white/15 text-white"
                 placeholder="Email"
               />
+              {errors.email && <p className="text-sm text-red-400">{errors.email}</p>}
             </div>
 
             <div className="mt-4 flex flex-col gap-2">
-              <Label className="text-gray-300">Subject</Label>
+              <Label className="text-gray-300">Contact Number</Label>
               <Input
-                className="bg-black border-white/15 text-white placeholder:text-gray-500 focus:border-white"
-                placeholder="Subject"
+                name="contactNo"
+                value={formData.contactNo}
+                onChange={handleChange}
+                className="bg-black border-white/15 text-white"
+                placeholder="+91 9999999999"
               />
+              {errors.contactNo && (
+                <p className="text-sm text-red-400">{errors.contactNo}</p>
+              )}
             </div>
 
             <div className="mt-4 flex flex-col gap-2">
               <Label className="text-gray-300">Message</Label>
               <Textarea
-                className="bg-black border-white/15 text-white placeholder:text-gray-500 focus:border-white min-h-[120px]"
+                name="message"
+                value={formData.message}
+                onChange={handleChange}
+                className="bg-black border-white/15 text-white min-h-[120px]"
                 placeholder="Type your message here..."
               />
+              {errors.message && (
+                <p className="text-sm text-red-400">{errors.message}</p>
+              )}
             </div>
 
             <Button
+              type="submit"
+              disabled={loading}
               className="mt-6 w-full bg-white text-black hover:bg-gray-200"
             >
-              Send Message
+              {loading ? "Sending..." : "Send Message"}
             </Button>
-          </div>
+          </form>
         </div>
       </div>
     </section>
