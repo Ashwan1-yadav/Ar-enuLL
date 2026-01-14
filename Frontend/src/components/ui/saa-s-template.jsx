@@ -117,15 +117,9 @@ const Hero = React.memo(() => {
         <span
           className="text-xs text-center whitespace-nowrap"
           style={{ color: '#9ca3af' }}>
-          Welcome to Ar$eNuLL
+          Welcome to NavRiox Digital Solutions
         </span>
-        <a
-          href="#new-version"
-          className="flex items-center gap-1 text-xs hover:text-white transition-all active:scale-95 whitespace-nowrap"
-          style={{ color: '#9ca3af' }}
-          aria-label="Read more about the new version">
-          <ArrowRight size={12} />
-        </a>
+        
       </aside>
       <h1
         className="text-4xl md:text-5xl lg:text-6xl font-medium text-center max-w-3xl px-6 leading-tight mb-6"

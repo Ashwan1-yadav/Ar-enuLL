@@ -5,12 +5,13 @@ import Services from './pages/Services';
 import { Navbar5 } from './components/ui/navbar-5';
 import GetInTouch from './pages/Getintouch';
 import ContactUs from './pages/ContactUs';
+import Footer4Col  from "@/components/ui/footer-column";
 
 function App() {
   return (
       <>
       <Navbar5/>
-      <div className="min-h-screen bg-black text-white">
+      <div className="min-h-screen bg-black text-white mb-[-70px]">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
@@ -19,6 +20,7 @@ function App() {
           <Route path="/getintouch" element={<GetInTouch />} />
         </Routes>
       </div>
+      <Footer4Col />
       </>
   
   );

@@ -107,7 +107,7 @@ export default function DefaultDemo() {
           title="Get in touch"
           description="If you have any questions regarding our services or need help, please fill out the form. We usually respond within 1 business day."
           contactInfo={[
-            { icon: MailIcon, label: "Email", value: "hello@Ar$eNuLL.com" },
+            { icon: MailIcon, label: "Email", value: "hello@NavRiox.com" },
             { icon: PhoneIcon, label: "Phone", value: "+91 000000000" },
             {
               icon: MapPinIcon,

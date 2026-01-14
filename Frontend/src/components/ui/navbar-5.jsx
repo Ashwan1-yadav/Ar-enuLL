@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import logo from "@/assests/logo.png";
 
 const Menu = ({ className = "", size = 24 }) => (
   <svg
@@ -46,7 +47,12 @@ export const Navbar5 = () => {
     <header className="fixed top-0 w-full z-50 border-b border-gray-800/50 bg-black/80 backdrop-blur-md">
       <nav className="max-w-7xl mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
-          <div className="text-xl font-semibold text-white">Ar$eNuLL</div>
+          <div className="text-xl font-semibold text-white overflow-hidden flex justify-center items-center">
+            <Link to="/">
+              <img src={logo} alt="logo" className="h-10 w-auto" />
+            </Link>
+            <Link to="/"><span className="ml-2 text-xl font-semibold">NavRiox</span></Link>
+          </div>
 
           <div className="hidden md:flex items-center justify-center gap-8 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
             <Link
