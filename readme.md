@@ -1,7 +1,5 @@
 <img src="./assets/banner.png" alt="Navriox Digital Solutions" width="100%">
 
-<br>
-
 <h1 align="center">Navriox Digital Solutions</h1>
 
 <p align="center">
